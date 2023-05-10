@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +14,18 @@ use App\Http\Controllers\RegisterController;
 */
 
 Route::get('/', function () {
-    return view('app');
+    return view('layouts/app');
 });
-Route::get('Registration', [RegisterController::class, 'create']);
-Route::post('Registration', [RegisterController::class, 'store']);
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::get('login', [LoginController::class, 'create']);
-Route::post('login', [LoginController::class, 'store']);
-Route::delete('logout', [LoginController::class, 'destroy']);
+Route::get('/Zöldségek', function () {
+    return view('vegetables');
+});
+Route::get('/Rendelés', function () {
+    return view('order');
+});
+
+require __DIR__ . '/auth.php';
